@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "deploy:dev": "cdk deploy --profile personal-profile.dev",
     "gen": "bun ./build.tsx",
     "preview": "vite preview",
     "typecheck": "tsc"
@@ -16,6 +17,8 @@
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "@types/showdown": "^2.0.6",
+    "aws-cdk": "^2.177.0",
+    "aws-cdk-lib": "^2.177.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "showdown": "^2.1.0",
