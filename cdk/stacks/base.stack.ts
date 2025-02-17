@@ -10,11 +10,11 @@ export class BaseStack extends Stack {
   }
 
   get env(): Env {
-      switch (this.account) {
-        case '670799836323':
-            return 'dev';
-        default:
-            throw new Error(`Could not find region for ${this.account} account`);
-      }
+    switch (this.account) {
+      case '670799836323':
+        return 'dev';
+      default:
+        throw new Error(`Could not find region for ${this.account} account`);
+    }
   }
 }

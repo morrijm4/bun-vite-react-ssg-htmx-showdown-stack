@@ -1,7 +1,22 @@
+body {
+  background-color: black;
+  color: white;
+}
+
 nav li {
     cursor: pointer;
 }
 
 #blog-list > li {
     cursor: pointer;
+}
+
+main {
+  margin-top: 2rem;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  text-align: center; /* Centers text */
 }

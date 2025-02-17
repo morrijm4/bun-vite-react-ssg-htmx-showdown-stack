@@ -3,13 +3,15 @@
   "name": "vite-website",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "deploy:dev": "cdk deploy --profile personal-profile.dev",
-    "gen": "bun ./build.tsx",
+    "dev": "bun ./build.tsx",
+    "deploy": "cdk deploy --profile personal-profile.dev",
+    "diff": "cdk diff --profile personal-profile.dev",
     "preview": "vite preview",
+    "sso": "aws sso login --profile personal-profile.dev",
     "typecheck": "tsc"
   },
   "dependencies": {
+    "chokidar": "^4.0.3",
     "htmx.org": "2.0.4"
   },
   "devDependencies": {
@@ -19,6 +21,7 @@
     "@types/showdown": "^2.0.6",
     "aws-cdk": "^2.177.0",
     "aws-cdk-lib": "^2.177.0",
+    "constructs": "^10.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "showdown": "^2.1.0",
