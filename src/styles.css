@@ -1,22 +1,27 @@
-body {
-  background-color: black;
-  color: white;
+@import 'tailwindcss';
+
+@theme {
+  --color-dark: #181818;
 }
 
-nav li {
-    cursor: pointer;
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-#blog-list > li {
-    cursor: pointer;
-}
-
-main {
-  margin-top: 2rem;
-  padding: 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  text-align: center; /* Centers text */
+.rainbow-text {
+  font-family: 'Bangers';
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow 5s linear infinite;
 }

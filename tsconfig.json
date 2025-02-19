@@ -39,7 +39,8 @@
         "isolatedModules": true,
 
         // Language
-        "jsx": "react-jsx",
+        "jsx": "react",
+        "jsxFactory": "elements.createElement",
         "target": "ESnext",
 
         // Completeness

@@ -1,5 +1,4 @@
 import path from 'path';
-import fsp from 'fs/promises';
 import fs from 'fs';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { srcDir } from '../../constants';
@@ -12,8 +11,8 @@ export function createStaticSiteGenerator(): Promise<void>[] {
   console.log('components', components);
 
   for (const fileName of components) {
-      const srcPath = path.join(componentsDir, fileName);
-      delete require.cache[srcPath];
+    const srcPath = path.join(componentsDir, fileName);
+    delete require.cache[srcPath];
   };
 
   return components.map(async (fileName) => {
@@ -25,9 +24,11 @@ export function createStaticSiteGenerator(): Promise<void>[] {
     const srcPath = path.join(componentsDir, fileName);
     console.log('srcPath', srcPath);
 
-    const { default: Component } = await import(`${srcPath}?t=${Date.now()}`);
+    const { default: html } = await import(`${srcPath}?t=${Date.now()}`);
 
-    const html = renderToStaticMarkup(<Component />);
+    if (typeof html !== 'string') {
+      return console.log(`Module ${fileName} is not a string`);
+    }
 
     console.log(`Read ${fileName}`);
 

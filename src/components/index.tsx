@@ -1,42 +1,24 @@
-import { getBlogsSync } from '../services/blog/blogs';
+import * as elements from 'typed-html';
 
-export default function Index() {
-  const blogs = getBlogsSync();
+export default (
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="Random tech blog" />
+      <meta name="author" content="Matthew Morrison" />
+      <title>Matthew Morrison's blog</title>
+      <link rel="stylesheet" href="styles.css" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" />
+      <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+    </head>
 
-  return (
-    <html lang="en">
-
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Random tech blog" />
-        <meta name="author" content="Matthew Morrison" />
-        <title>Matthew Morrison's blog</title>
-        <link rel="stylesheet" href="styles.css" />
-      </head>
-
-      <body hx-ext='preload'>
-        <header>
-          <nav>
-            <ul id="blog-list">
-              <li key='home' hx-get="home.html" hx-swap="innerHTML" hx-target="#main" preload="mouseover">Home</li>
-              {blogs.map(({ title, path }) => {
-                return (
-                  <li key={title} hx-get={`blog/${path}`} hx-swap="innerHTML" hx-target="#main" preload="mouseover">
-                    {title}
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        </header>
-        <main id="main">
-          <h1>HIIIIIII</h1>
-        </main>
-        <footer>
-        </footer>
-        <script defer type="module" src="app.ts"></script>
-      </body>
-    </html>
-  );
-}
+    <body hx-ext="preload" class="bg-dark">
+      <main class="flex h-full items-center justify-center">
+        <h1 class="rainbow-text p-4 font-['Bangers'] text-[10vw]">mattymo.dev</h1>
+      </main>
+      <footer></footer>
+    </body>
+  </html>
+);
