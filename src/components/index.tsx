@@ -8,17 +8,21 @@ export default (
       <meta name="description" content="Random tech blog" />
       <meta name="author" content="Matthew Morrison" />
       <title>Matthew Morrison's blog</title>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link rel="stylesheet" href="styles.css" />
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" />
-      <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
     </head>
 
     <body hx-ext="preload" class="bg-dark">
-      <main class="flex h-full items-center justify-center">
-        <h1 class="rainbow-text p-4 font-['Bangers'] text-[10vw]">mattymo.dev</h1>
+      <main class="flex h-full items-center justify-center text-white">
+        {ShakyText('mattymo.dev')}
       </main>
-      <footer></footer>
     </body>
   </html>
 );
+
+function ShakyText(text: string) {
+  return text
+    ?.toString()
+    .split('')
+    .map((char) => <h1 class="rainbow-text text-[10vw]">{char}</h1>);
+}

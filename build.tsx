@@ -1,4 +1,4 @@
-import chokidar from 'chokidar'
+import chokidar from 'chokidar';
 import * as vite from 'vite';
 import { createBlog } from './src/services/blog/blogs';
 import { convertBlog } from './src/services/blog/converter';
@@ -14,17 +14,19 @@ const builder = new Builder({
   },
 });
 
-chokidar.watch('./blog')
+chokidar
+  .watch('./blog')
   .on('add', (path) => {
-    console.log(`Running add for ${path}`)
+    console.log(`Running add for ${path}`);
     builder.buildAfter([convertBlog(createBlog(path))]);
   })
   .on('change', (path) => {
-    console.log(`Running change for ${path}`)
+    console.log(`Running change for ${path}`);
     builder.buildAfter([convertBlog(createBlog(path))]);
-  })
+  });
 
-chokidar.watch('./src')
+chokidar
+  .watch('./src')
   .on('add', (path) => {
     console.log(`Running root add for ${path}`);
     builder.buildAfter([]);
@@ -32,22 +34,23 @@ chokidar.watch('./src')
   .on('change', (path) => {
     console.log(`Running root change for ${path}`);
     builder.buildAfter([]);
-  })
+  });
 
 let isSSGReady = false;
 
-chokidar.watch('./src/components')
+chokidar
+  .watch('./src/components')
   .on('ready', () => {
     builder.buildAfter(createStaticSiteGenerator());
     isSSGReady = true;
   })
   .on('add', (path) => {
-    console.log(`Running add for ${path}`)
+    console.log(`Running add for ${path}`);
     if (isSSGReady) builder.buildAfter(createStaticSiteGenerator());
   })
   .on('change', (path) => {
-    console.log(`Running change for ${path}`)
+    console.log(`Running change for ${path}`);
     if (isSSGReady) builder.buildAfter(createStaticSiteGenerator());
-  })
+  });
 
 await vite.preview();
