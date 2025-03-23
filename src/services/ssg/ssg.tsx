@@ -1,10 +1,9 @@
 import path from 'path';
 import fs from 'fs';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { srcDir } from '../../constants';
 
-export function createStaticSiteGenerator(): Promise<void>[] {
-  const componentsDir = path.join(srcDir, 'components');
+export function createStaticSiteGenerator(src: string, dst: string): Promise<void>[] {
+  const componentsDir = path.join(srcDir, src);
   const components = fs.readdirSync(componentsDir);
 
   console.log('componentsDir', componentsDir);
@@ -32,9 +31,7 @@ export function createStaticSiteGenerator(): Promise<void>[] {
 
     console.log(`Read ${fileName}`);
 
-    if (fileName !== 'index.tsx') {
-      fileName = `public/${fileName}`;
-    }
+    fileName = `${dst}${fileName}`;
 
     const distPath = path.join(srcDir, fileName.replace('.tsx', '.html'));
 

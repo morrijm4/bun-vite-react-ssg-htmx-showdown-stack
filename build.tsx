@@ -39,18 +39,31 @@ chokidar
 let isSSGReady = false;
 
 chokidar
-  .watch('./src/components')
+  .watch(['./src/components/public', './src/pages'])
   .on('ready', () => {
-    builder.buildAfter(createStaticSiteGenerator());
+    builder.buildAfter([
+      ...createStaticSiteGenerator('components/public', 'public/'),
+      ...createStaticSiteGenerator('pages', '/'),
+    ]);
     isSSGReady = true;
   })
   .on('add', (path) => {
     console.log(`Running add for ${path}`);
-    if (isSSGReady) builder.buildAfter(createStaticSiteGenerator());
+    if (isSSGReady) {
+      builder.buildAfter([
+        ...createStaticSiteGenerator('components/public', 'public/'),
+        ...createStaticSiteGenerator('pages', '/'),
+      ]);
+    }
   })
   .on('change', (path) => {
     console.log(`Running change for ${path}`);
-    if (isSSGReady) builder.buildAfter(createStaticSiteGenerator());
+    if (isSSGReady) {
+      builder.buildAfter([
+        ...createStaticSiteGenerator('components/public', 'public/'),
+        ...createStaticSiteGenerator('pages', '/'),
+      ]);
+    }
   });
 
 await vite.preview();
