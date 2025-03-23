@@ -7,6 +7,7 @@ export default (
   <Html>
     <Head>
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="/public/styles/index.css" rel="stylesheet" />
     </Head>
     <Layout>
       <main class="flex h-full items-center justify-center text-white">
