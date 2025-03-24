@@ -7,7 +7,6 @@ export function Head({ children }: elements.Attributes) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="Random tech blog" />
       <meta name="author" content="Matthew Morrison" />
-      <title>Matthew Morrison's blog</title>
       <link href="/public/styles/global.css" rel="stylesheet" />
       {children}
     </head>

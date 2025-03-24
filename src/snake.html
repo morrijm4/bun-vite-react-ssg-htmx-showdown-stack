@@ -2,16 +2,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Random tech blog">
 <meta name="author" content="Matthew Morrison">
-<title>Matthew Morrison's blog</title>
 <link href="/public/styles/global.css" rel="stylesheet">
+<title>Snake</title>
 <link href="/public/styles/snake.css" rel="stylesheet"></head>
-<body class="bg-dark text-white"><main class="m-auto mt-16 flex max-w-fit flex-col items-start gap-4 px-4"><div class="heading flex w-full justify-between"><h1>Score: 
+<body class="bg-dark text-white"><main class="m-auto mt-4 flex max-w-fit flex-col items-start gap-4 px-4"><div class="flex w-full justify-between text-lg lg:text-2xl"><h1 id="title"></h1>
+<button class="play-button cursor-pointer rounded-2xl bg-blue-500 hover:bg-blue-600" id="play-button">Play</button></div>
+<div class="flex" id="root"></div>
+<div class="flex w-full justify-between text-lg lg:text-2xl"><h1>Score: 
 <span id="score">0</span></h1>
 <h1>High score: 
 <span id="high-score">0</span></h1></div>
-<div class="flex" id="root"></div>
-<div class="heading flex w-full justify-between"><h1 id="title"></h1>
-<button class="play-button cursor-pointer rounded-2xl bg-blue-500 hover:bg-blue-600" id="play-button">Play</button></div></main></body>
+<div class="m-auto flex w-48 flex-col items-center gap-1 lg:invisible"><div><img id="up" width="64px" height="64px" src="/public/icons/up-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"></div>
+<div class="flex w-full justify-between"><img id="left" width="64px" height="64px" src="/public/icons/left-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600">
+<img id="right" width="64px" height="64px" src="/public/icons/right-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"></div>
+<div><img id="down" width="64px" height="64px" src="/public/icons/down-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"></div></div></main></body>
 <script>function getSnakeSpeed(state) {
     return Math.max(300 - Math.log(state.score + 1) * 60, 100);
   }
@@ -23,13 +27,13 @@
     assert(node.type === "snake", msg);
   }
   function getHighScore() {
-    const highScore = window.sessionStorage.getItem("high-score");
+    const highScore = window.localStorage.getItem("high-score");
     if (highScore == null)
       return 0;
     return parseInt(highScore);
   }
   function setHighScore(score) {
-    window.sessionStorage.setItem("high-score", score.toString());
+    window.localStorage.setItem("high-score", score.toString());
     const element = document.getElementById("high-score");
     assert(element, "Cannot find high score dom node");
     element.innerHTML = score.toString();
@@ -43,6 +47,40 @@
   function getNode(grid, point) {
     return grid[point.col]?.[point.row];
   }
+  function initButtons() {
+    const up = document.getElementById("up"), left = document.getElementById("left"), right = document.getElementById("right"), down = document.getElementById("down");
+    assert(up);
+    assert(left);
+    assert(right);
+    assert(down);
+    up.addEventListener("click", () => {
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
+    });
+    left.addEventListener("click", () => {
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft" }));
+    });
+    right.addEventListener("click", () => {
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight" }));
+    });
+    down.addEventListener("click", () => {
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
+    });
+  }
+  function initPlayHandler() {
+    const controller = new AbortController;
+    document.addEventListener("keydown", ({ key }) => {
+      switch (key) {
+        case "ArrowUp":
+        case "w":
+        case "ArrowRight":
+        case "d":
+        case "ArrowDown":
+        case "s":
+          controller.abort();
+          break;
+      }
+    }, { signal: controller.signal });
+  }
   function initGrid(root) {
     return Array.from({ length: 13 }, (_, i) => {
       const col = document.createElement("div");
@@ -51,7 +89,8 @@
         const row = document.createElement("div");
         col.appendChild(row);
         row.classList.add("custom-border");
-        row.classList.add("node");
+        row.classList.add("lg:p-4");
+        row.classList.add("p-3");
         return row;
       });
     });
@@ -71,21 +110,25 @@
     return async (event) => {
       switch (event.key) {
         case "ArrowUp":
+        case "w":
           if (state.direction === "down")
             return;
           state.pendingDirection = "up";
           break;
         case "ArrowDown":
+        case "s":
           if (state.direction === "up")
             return;
           state.pendingDirection = "down";
           break;
         case "ArrowLeft":
+        case "a":
           if (state.direction === "right")
             return;
           state.pendingDirection = "left";
           break;
         case "ArrowRight":
+        case "d":
           if (state.direction === "left")
             return;
           state.pendingDirection = "right";
@@ -103,14 +146,28 @@
   function initGameState(grid) {
     setHighScore(getHighScore());
     const gridState = initGridState(grid), head = {
-      col: Math.floor(6.5),
+      col: Math.floor(6.5) - 2,
       row: Math.floor(6.5)
-    }, direction = "up", headNode = getNode(gridState, head);
-    assert(headNode, "Cannot find head node");
-    headNode.type = "snake";
-    assertSnakeNode(headNode);
-    headNode.direction = direction;
-    const food = createFoodPoint(gridState), foodNode = getNode(gridState, food);
+    }, tail = {
+      col: head.col - 2,
+      row: head.row
+    }, direction = "right", s1 = getNode(gridState, head), s2 = getNode(gridState, { col: head.col - 1, row: head.row }), s3 = getNode(gridState, tail);
+    assert(s1, "Cannot find snake node");
+    assert(s2, "Cannot find snake node");
+    assert(s3, "Cannot find snake node");
+    s1.type = "snake";
+    s2.type = "snake";
+    s3.type = "snake";
+    assertSnakeNode(s1);
+    assertSnakeNode(s2);
+    assertSnakeNode(s3);
+    s1.direction = direction;
+    s2.direction = direction;
+    s3.direction = direction;
+    const food = {
+      col: head.col + 6,
+      row: head.row
+    }, foodNode = getNode(gridState, food);
     assert(foodNode, "Cannot find food node");
     foodNode.type = "food";
     const state = {
@@ -122,7 +179,7 @@
       controller: new AbortController,
       food,
       head,
-      tail: structuredClone(head),
+      tail,
       gameOver: !1,
       title: ""
     };
@@ -136,11 +193,11 @@
     assert(playButton, "play button not found");
     if (state.gameOver) {
       state.controller.abort();
-      playButton.classList.remove("hidden");
+      playButton.classList.remove("invisible");
       if (getHighScore() < state.score)
         setHighScore(state.score);
     } else
-      playButton.classList.add("hidden");
+      playButton.classList.add("invisible");
     const title = document.getElementById("title");
     assert(title, "Could not find title");
     title.innerText = state.title;
@@ -234,6 +291,8 @@
       await nextFrame(state, getSnakeSpeed(state));
   }
   function main() {
+    setHighScore(getHighScore());
+    initButtons();
     const root = document.getElementById("root");
     assert(root, "Cannot find root node");
     const grid = initGrid(root), playButton = document.getElementById("play-button");

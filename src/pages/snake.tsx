@@ -3,6 +3,7 @@ import { Layout } from '../components/private/layout';
 import { Html } from '../components/private/html';
 import { Head } from '../components/private/head';
 import { ts } from '../services/func-body-to-string/func-body-to-string';
+import { CoreDnsComputeType } from 'aws-cdk-lib/aws-eks';
 
 interface Node {
   type: 'empty' | 'food' | 'snake';
@@ -42,20 +43,12 @@ type GameState = {
 export default (
   <Html>
     <Head>
+      <title>Snake</title>
       <link href="/public/styles/snake.css" rel="stylesheet" />
     </Head>
     <Layout>
-      <main class="m-auto mt-16 flex max-w-fit flex-col items-start gap-4 px-4">
-        <div class="heading flex w-full justify-between">
-          <h1>
-            Score:&nbsp;<span id="score">0</span>
-          </h1>
-          <h1>
-            High score:&nbsp;<span id="high-score">0</span>
-          </h1>
-        </div>
-        <div class="flex" id="root"></div>
-        <div class="heading flex w-full justify-between">
+      <main class="m-auto mt-4 flex max-w-fit flex-col items-start gap-4 px-4">
+        <div class="flex w-full justify-between text-lg lg:text-2xl">
           <h1 id="title"></h1>
           <button
             class="play-button cursor-pointer rounded-2xl bg-blue-500 hover:bg-blue-600"
@@ -63,6 +56,51 @@ export default (
           >
             Play
           </button>
+        </div>
+        <div class="flex" id="root"></div>
+        <div class="flex w-full justify-between text-lg lg:text-2xl">
+          <h1>
+            Score:&nbsp;<span id="score">0</span>
+          </h1>
+          <h1>
+            High score:&nbsp;<span id="high-score">0</span>
+          </h1>
+        </div>
+        <div class="m-auto flex w-48 flex-col items-center gap-1 lg:invisible">
+          <div>
+            <img
+              id="up"
+              width="64px"
+              height="64px"
+              src="/public/icons/up-arrow.svg"
+              class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"
+            />
+          </div>
+          <div class="flex w-full justify-between">
+            <img
+              id="left"
+              width="64px"
+              height="64px"
+              src="/public/icons/left-arrow.svg"
+              class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"
+            />
+            <img
+              id="right"
+              width="64px"
+              height="64px"
+              src="/public/icons/right-arrow.svg"
+              class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"
+            />
+          </div>
+          <div>
+            <img
+              id="down"
+              width="64px"
+              height="64px"
+              src="/public/icons/down-arrow.svg"
+              class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"
+            />
+          </div>
         </div>
       </main>
     </Layout>
@@ -85,13 +123,13 @@ export default (
         }
 
         function getHighScore(): number {
-          const highScore = window.sessionStorage.getItem('high-score');
+          const highScore = window.localStorage.getItem('high-score');
           if (highScore == null) return 0;
           return parseInt(highScore);
         }
 
         function setHighScore(score: number) {
-          window.sessionStorage.setItem('high-score', score.toString());
+          window.localStorage.setItem('high-score', score.toString());
 
           const element = document.getElementById('high-score');
           assert(element, 'Cannot find high score dom node');
@@ -109,6 +147,52 @@ export default (
           return grid[point.col]?.[point.row];
         }
 
+        function initButtons() {
+          const up = document.getElementById('up');
+          const left = document.getElementById('left');
+          const right = document.getElementById('right');
+          const down = document.getElementById('down');
+
+          assert(up);
+          assert(left);
+          assert(right);
+          assert(down);
+
+          up.addEventListener('click', () => {
+            document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+          });
+          left.addEventListener('click', () => {
+            document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+          });
+          right.addEventListener('click', () => {
+            document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+          });
+          down.addEventListener('click', () => {
+            document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+          });
+        }
+
+        function initPlayHandler() {
+          const controller = new AbortController();
+
+          document.addEventListener(
+            'keydown',
+            ({ key }) => {
+              switch (key) {
+                case 'ArrowUp':
+                case 'w':
+                case 'ArrowRight':
+                case 'd':
+                case 'ArrowDown':
+                case 's':
+                  controller.abort();
+                  break;
+              }
+            },
+            { signal: controller.signal },
+          );
+        }
+
         function initGrid(root: HTMLElement): Grid {
           return Array.from({ length: COLUMNS }, (_, i) => {
             const col = document.createElement('div');
@@ -119,7 +203,8 @@ export default (
               col.appendChild(row);
 
               row.classList.add('custom-border');
-              row.classList.add('node');
+              row.classList.add('lg:p-4');
+              row.classList.add('p-3');
 
               return row;
             });
@@ -148,18 +233,22 @@ export default (
           return async (event: KeyboardEvent) => {
             switch (event.key) {
               case 'ArrowUp':
+              case 'w':
                 if (state.direction === 'down') return;
                 state.pendingDirection = 'up';
                 break;
               case 'ArrowDown':
+              case 's':
                 if (state.direction === 'up') return;
                 state.pendingDirection = 'down';
                 break;
               case 'ArrowLeft':
+              case 'a':
                 if (state.direction === 'right') return;
                 state.pendingDirection = 'left';
                 break;
               case 'ArrowRight':
+              case 'd':
                 if (state.direction === 'left') return;
                 state.pendingDirection = 'right';
                 break;
@@ -182,19 +271,41 @@ export default (
           const gridState = initGridState(grid);
 
           const head: Point = {
-            col: Math.floor(COLUMNS / 2),
+            col: Math.floor(COLUMNS / 2) - 2,
             row: Math.floor(ROWS / 2),
           };
 
-          const direction: Direction = 'up';
+          const tail: Point = {
+            col: head.col - 2,
+            row: head.row,
+          };
 
-          const headNode = getNode(gridState, head);
-          assert(headNode, 'Cannot find head node');
-          headNode.type = 'snake';
-          assertSnakeNode(headNode);
-          headNode.direction = direction;
+          const direction: Direction = 'right';
 
-          const food: Point = createFoodPoint(gridState);
+          const s1 = getNode(gridState, head);
+          const s2 = getNode(gridState, { col: head.col - 1, row: head.row });
+          const s3 = getNode(gridState, tail);
+
+          assert(s1, 'Cannot find snake node');
+          assert(s2, 'Cannot find snake node');
+          assert(s3, 'Cannot find snake node');
+
+          s1.type = 'snake';
+          s2.type = 'snake';
+          s3.type = 'snake';
+
+          assertSnakeNode(s1);
+          assertSnakeNode(s2);
+          assertSnakeNode(s3);
+
+          s1.direction = direction;
+          s2.direction = direction;
+          s3.direction = direction;
+
+          const food: Point = {
+            col: head.col + 6,
+            row: head.row,
+          };
 
           const foodNode = getNode(gridState, food);
           assert(foodNode, 'Cannot find food node');
@@ -209,7 +320,7 @@ export default (
             controller: new AbortController(),
             food,
             head,
-            tail: structuredClone(head),
+            tail,
             gameOver: false,
             title: '',
           };
@@ -227,14 +338,14 @@ export default (
 
           if (state.gameOver) {
             state.controller.abort();
-            playButton.classList.remove('hidden');
+            playButton.classList.remove('invisible');
 
             const highScore = getHighScore();
             if (highScore < state.score) {
               setHighScore(state.score);
             }
           } else {
-            playButton.classList.add('hidden');
+            playButton.classList.add('invisible');
           }
 
           const title = document.getElementById('title');
@@ -356,10 +467,14 @@ export default (
         }
 
         function main() {
+          setHighScore(getHighScore());
+          initButtons();
+
           const root = document.getElementById('root');
           assert(root, 'Cannot find root node');
 
           const grid = initGrid(root);
+          // render(initGameState(grid));
 
           const playButton = document.getElementById('play-button');
           assert(playButton, 'Cannot find play button');

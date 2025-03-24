@@ -1,11 +1,3 @@
-.node {
-  padding: clamp(var(--spacing) * 1, 2vw, var(--spacing) * 4);
-}
-
-.heading {
-  font-size: clamp(var(--spacing) * 1, 2vw, var(--spacing) * 5);
-}
-
 .custom-border {
   border-width: clamp(0.1px, 0.1vh, 1px);
 }

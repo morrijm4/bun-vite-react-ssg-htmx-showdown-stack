@@ -1,10 +1,27 @@
 import type { UserConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
-import * as fs from 'fs/promises';
+import * as fsp from 'fs/promises';
+import * as fs from 'fs';
+import path from 'path';
 
 export default {
   root: './src',
-  plugins: [tailwindcss()],
+  plugins: [
+    tailwindcss(),
+    {
+      name: 'rename-html-files',
+      async closeBundle() {
+        const distDir = 'dist';
+        fs.readdirSync(distDir).forEach((file) => {
+          if (file.endsWith('.html')) {
+            const oldPath = path.join(distDir, file);
+            const newPath = path.join(distDir, file.replace('.html', ''));
+            fs.renameSync(oldPath, newPath);
+          }
+        });
+      },
+    },
+  ],
   preview: {
     port: 4000,
   },
@@ -22,7 +39,7 @@ export default {
 } satisfies UserConfig;
 
 async function getEntryPoints(): Promise<Record<string, string>> {
-  const fileNames = await fs.readdir('src/pages');
+  const fileNames = await fsp.readdir('src/pages');
   return fileNames.reduce(
     (pageNames, fileName) => {
       const pageName = fileName.split('.')[0];

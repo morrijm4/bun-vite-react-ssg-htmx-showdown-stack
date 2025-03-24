@@ -6,6 +6,7 @@ import { Head } from '../components/private/head';
 export default (
   <Html>
     <Head>
+      <title>mattymo.dev</title>
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link href="/public/styles/index.css" rel="stylesheet" />
     </Head>
