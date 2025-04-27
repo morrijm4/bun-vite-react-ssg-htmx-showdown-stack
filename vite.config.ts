@@ -28,13 +28,13 @@ export default {
   build: {
     outDir: '../dist',
     emptyOutDir: true,
-    // minify: false,
+    minify: true,
     rollupOptions: {
       input: await getEntryPoints(),
     },
   },
   esbuild: {
-    // treeShaking: false,
+    treeShaking: true,
   },
 } satisfies UserConfig;
 
