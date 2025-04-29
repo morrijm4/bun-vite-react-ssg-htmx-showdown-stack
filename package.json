@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "bun ./build.tsx",
+    "dev": "bun ./watch.tsx",
     "deploy": "cdk deploy --profile personal-profile.dev",
     "diff": "cdk diff --profile personal-profile.dev",
     "preview": "vite preview",
     "sso": "aws sso login --profile personal-profile.dev",
+    "ssg": "bun ./build.tsx",
     "typecheck": "tsc"
   },
   "dependencies": {

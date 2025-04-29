@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "include": ["src/**/*", "cdk/**/*", "build.tsx"],
+  "include": ["src/**/*", "cdk/**/*", "build.tsx", "watch.tsx"],
   "compilerOptions": {
     // TypeChecking
     "allowUnreachableCode": false,

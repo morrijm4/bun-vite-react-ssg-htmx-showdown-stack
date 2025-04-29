@@ -6,7 +6,12 @@
 <title>Snake</title>
 <link href="/styles/snake.css" rel="stylesheet">
 <script src="/scripts/snake.ts" type="module"></script></head>
-<body class="bg-dark text-white"><main class="m-auto mt-4 flex max-w-fit flex-col items-start gap-4 px-4"><div class="flex w-full justify-between text-lg lg:text-2xl"><h1 id="title"></h1>
+<body class="bg-light dark:bg-dark font-roboto py-lg px-2xl mx-auto flex max-w-300 flex-col justify-center text-black dark:text-white"><nav class="flex items-center justify-between"><ol class="gap-lg text-md flex"><li id="/" class="nav hover:cursor-pointer hover:underline">Home</li>
+<li id="/about" class="nav hover:cursor-pointer hover:underline">About</li>
+<li id="/blog" class="nav hover:cursor-pointer hover:underline">Blog</li></ol>
+<div id="theme-toggle" class="bg-light-shadow dark:bg-dark-shadow p-sm dark:hover:bg-dark-shadow-hover hover:bg-light-shadow-hover rounded-xl hover:cursor-pointer"><img src="/icons/dark-mode.svg" alt="Dark Mode" id="dark" class="hidden">
+<img src="/icons/light-mode.svg" alt="Light Mode" id="light" class="hidden"></div></nav>
+<main class="m-auto mt-4 flex max-w-fit flex-col items-start gap-4 px-4"><div class="flex w-full justify-between text-lg lg:text-2xl"><h1 id="title"></h1>
 <button class="play-button cursor-pointer rounded-2xl bg-blue-500 hover:bg-blue-600" id="play-button">Play</button></div>
 <div class="flex" id="root"></div>
 <div class="flex w-full justify-between text-lg lg:text-2xl"><h1>Score: 

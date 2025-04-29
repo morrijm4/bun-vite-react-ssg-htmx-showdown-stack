@@ -1,69 +1,24 @@
-import chokidar from 'chokidar';
-import * as vite from 'vite';
-import { createBlog } from './src/services/blog/blogs';
-import { convertBlog } from './src/services/blog/converter';
-import { createStaticSiteGenerator } from './src/services/ssg/ssg';
-import { Builder } from './src/services/builder/builder';
-import viteConfig from './vite.config';
+import path from 'path';
+import fs from 'fs';
 
-const builder = new Builder({
-  onBuild: async () => {
-    console.log('================= Building the website =================');
+const src = path.join(import.meta.dir, './src/pages');
+const dst = path.join(import.meta.dir, './src');
 
-    await vite.build(viteConfig);
-  },
-});
-
-chokidar
-  .watch('./blog')
-  .on('add', (path) => {
-    console.log(`Running add for ${path}`);
-    builder.buildAfter([convertBlog(createBlog(path))]);
-  })
-  .on('change', (path) => {
-    console.log(`Running change for ${path}`);
-    builder.buildAfter([convertBlog(createBlog(path))]);
-  });
-
-chokidar
-  .watch('./src')
-  .on('add', (path) => {
-    console.log(`Running root add for ${path}`);
-    builder.buildAfter([]);
-  })
-  .on('change', (path) => {
-    console.log(`Running root change for ${path}`);
-    builder.buildAfter([]);
-  });
-
-let isSSGReady = false;
-
-chokidar
-  .watch(['./src/components/public', './src/pages'])
-  .on('ready', () => {
-    builder.buildAfter([
-      ...createStaticSiteGenerator('components/public', 'public/'),
-      ...createStaticSiteGenerator('pages', '/'),
-    ]);
-    isSSGReady = true;
-  })
-  .on('add', (path) => {
-    console.log(`Running add for ${path}`);
-    if (isSSGReady) {
-      builder.buildAfter([
-        ...createStaticSiteGenerator('components/public', 'public/'),
-        ...createStaticSiteGenerator('pages', '/'),
-      ]);
+await Promise.all(
+  fs.readdirSync(src).map(async (fileName) => {
+    if (!fileName.endsWith('.tsx')) {
+      console.warn(`Invalid extension for file: ${fileName}`);
+      return;
     }
-  })
-  .on('change', (path) => {
-    console.log(`Running change for ${path}`);
-    if (isSSGReady) {
-      builder.buildAfter([
-        ...createStaticSiteGenerator('components/public', 'public/'),
-        ...createStaticSiteGenerator('pages', '/'),
-      ]);
-    }
-  });
 
-await vite.preview();
+    const { default: html } = await import(path.join(src, fileName));
+
+    if (typeof html !== 'string') {
+      return console.log(`Module ${fileName} is not a string`);
+    }
+
+    const distPath = path.join(dst, fileName.replace('.tsx', '.html'));
+
+    await Bun.write(distPath, html);
+  }),
+);

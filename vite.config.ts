@@ -22,19 +22,20 @@ export default {
       },
     },
   ],
+  server: {},
   preview: {
     port: 4000,
   },
   build: {
     outDir: '../dist',
     emptyOutDir: true,
-    minify: true,
     rollupOptions: {
       input: await getEntryPoints(),
     },
   },
   esbuild: {
     treeShaking: true,
+    minifyIdentifiers: false,
   },
 } satisfies UserConfig;
 
