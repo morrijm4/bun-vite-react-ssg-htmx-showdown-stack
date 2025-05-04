@@ -3,22 +3,24 @@
 <meta name="description" content="Random tech blog">
 <meta name="author" content="Matthew Morrison">
 <link href="/styles/global.css" rel="stylesheet">
+<script src="/scripts/theme.ts" type="module"></script>
+<script src="/scripts/router.ts" type="module"></script>
 <title>Snake</title>
 <link href="/styles/snake.css" rel="stylesheet">
 <script src="/scripts/snake.ts" type="module"></script></head>
-<body class="bg-light dark:bg-dark font-roboto py-lg px-2xl mx-auto flex max-w-300 flex-col justify-center text-black dark:text-white"><nav class="flex items-center justify-between"><ol class="gap-lg text-md flex"><li id="/" class="nav hover:cursor-pointer hover:underline">Home</li>
+<body class="bg-light dark:bg-dark font-roboto py-lg px-2xl mx-auto flex max-w-300 flex-col justify-center text-black dark:text-white"><nav class="mb-2xl flex items-center justify-between"><ol class="gap-lg text-md flex"><li id="/" class="nav hover:cursor-pointer hover:underline">Home</li>
 <li id="/about" class="nav hover:cursor-pointer hover:underline">About</li>
 <li id="/blog" class="nav hover:cursor-pointer hover:underline">Blog</li></ol>
 <div id="theme-toggle" class="bg-light-shadow dark:bg-dark-shadow p-sm dark:hover:bg-dark-shadow-hover hover:bg-light-shadow-hover rounded-xl hover:cursor-pointer"><img src="/icons/dark-mode.svg" alt="Dark Mode" id="dark" class="hidden">
 <img src="/icons/light-mode.svg" alt="Light Mode" id="light" class="hidden"></div></nav>
-<main class="m-auto mt-4 flex max-w-fit flex-col items-start gap-4 px-4"><div class="flex w-full justify-between text-lg lg:text-2xl"><h1 id="title"></h1>
-<button class="play-button cursor-pointer rounded-2xl bg-blue-500 hover:bg-blue-600" id="play-button">Play</button></div>
+<main class="lg:text-md m-auto flex max-w-fit flex-col items-start gap-4 px-4 text-sm"><div class="flex w-full justify-between"><h1 id="title"></h1>
+<button class="play-button cursor-pointer rounded-2xl bg-blue-500 text-white hover:bg-blue-600" id="play-button">Play</button></div>
 <div class="flex" id="root"></div>
-<div class="flex w-full justify-between text-lg lg:text-2xl"><h1>Score: 
+<div class="flex w-full justify-between"><h1>Score: 
 <span id="score">0</span></h1>
 <h1>High score: 
 <span id="high-score">0</span></h1></div>
-<div class="m-auto flex w-48 flex-col items-center gap-1 lg:invisible"><div><img id="up" width="64px" height="64px" src="/public/icons/up-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"></div>
+<div class="m-auto flex w-48 flex-col items-center gap-1 lg:hidden"><div><img id="up" width="64px" height="64px" src="/public/icons/up-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"></div>
 <div class="flex w-full justify-between"><img id="left" width="64px" height="64px" src="/public/icons/left-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600">
 <img id="right" width="64px" height="64px" src="/public/icons/right-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"></div>
 <div><img id="down" width="64px" height="64px" src="/public/icons/down-arrow.svg" class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"></div></div></main></body></html>

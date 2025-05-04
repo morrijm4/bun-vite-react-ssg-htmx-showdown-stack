@@ -5,7 +5,7 @@ import { Hero } from './hero';
 
 export function Home() {
   return (
-    <main class="mt-2xl flex items-center justify-center text-3xl text-black dark:text-white">
+    <section class="flex items-center justify-center text-3xl text-black dark:text-white">
       <div class="gap-lg flex flex-col items-start">
         <h1>Hello! 👋</h1>
         <p>Check out my place to share projects, thoughts, and games.</p>
@@ -15,6 +15,6 @@ export function Home() {
         </Button>
       </div>
       <Hero />
-    </main>
+    </section>
   );
 }

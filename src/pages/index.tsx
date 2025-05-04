@@ -5,6 +5,7 @@ import { Head } from '../components/private/head';
 import { Home } from '../components/private/home';
 import { Router, type Page } from '../components/private/router';
 import { About } from '../components/private/about';
+import { Blog } from '../components/private/blog';
 
 export const pages: Page[] = [
   {
@@ -19,7 +20,7 @@ export const pages: Page[] = [
   },
   {
     title: 'Blog',
-    content: <main>Blog</main>,
+    content: <Blog />,
     path: '/blog',
   },
 ];
@@ -28,11 +29,11 @@ export default (
   <Html>
     <Head>
       <title>mattymo.dev</title>
-      <script src="/scripts/router.ts" type="module"></script>
-      <script src="/scripts/theme.ts" type="module"></script>
     </Head>
     <Layout>
-      <Router pages={pages} />
+      <main>
+        <Router pages={pages} />
+      </main>
     </Layout>
   </Html>
 );

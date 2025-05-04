@@ -4,7 +4,7 @@ import { pages } from '../../pages/index';
 
 export function Nav() {
   return (
-    <nav class="flex items-center justify-between">
+    <nav class="mb-2xl flex items-center justify-between">
       <ol class="gap-lg text-md flex">
         {pages.map(({ title, path }) => {
           return (

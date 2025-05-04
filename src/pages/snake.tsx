@@ -11,18 +11,18 @@ export default (
       <script src="/scripts/snake.ts" type="module"></script>
     </Head>
     <Layout>
-      <main class="m-auto mt-4 flex max-w-fit flex-col items-start gap-4 px-4">
-        <div class="flex w-full justify-between text-lg lg:text-2xl">
+      <main class="lg:text-md m-auto flex max-w-fit flex-col items-start gap-4 px-4 text-sm">
+        <div class="flex w-full justify-between">
           <h1 id="title"></h1>
           <button
-            class="play-button cursor-pointer rounded-2xl bg-blue-500 hover:bg-blue-600"
+            class="play-button cursor-pointer rounded-2xl bg-blue-500 text-white hover:bg-blue-600"
             id="play-button"
           >
             Play
           </button>
         </div>
         <div class="flex" id="root"></div>
-        <div class="flex w-full justify-between text-lg lg:text-2xl">
+        <div class="flex w-full justify-between">
           <h1>
             Score:&nbsp;<span id="score">0</span>
           </h1>
@@ -30,7 +30,7 @@ export default (
             High score:&nbsp;<span id="high-score">0</span>
           </h1>
         </div>
-        <div class="m-auto flex w-48 flex-col items-center gap-1 lg:invisible">
+        <div class="m-auto flex w-48 flex-col items-center gap-1 lg:hidden">
           <div>
             <img
               id="up"

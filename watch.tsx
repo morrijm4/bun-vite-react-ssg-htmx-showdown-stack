@@ -9,5 +9,9 @@ const watcher = chokidar.watch('./src', {
 
 watcher.on('change', async (event) => {
   console.log('change', event);
-  await $`bun ssg`;
+  try {
+    await $`bun ssg`;
+  } catch {
+    /* do nothing */
+  }
 });

@@ -8,6 +8,8 @@ export function Head({ children }: elements.Attributes) {
       <meta name="description" content="Random tech blog" />
       <meta name="author" content="Matthew Morrison" />
       <link href="/styles/global.css" rel="stylesheet" />
+      <script src="/scripts/theme.ts" type="module"></script>
+      <script src="/scripts/router.ts" type="module"></script>
       {children}
     </head>
   );
