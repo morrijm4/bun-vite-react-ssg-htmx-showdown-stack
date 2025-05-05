@@ -3,8 +3,8 @@ import { Hero } from './hero';
 
 export function About() {
   return (
-    <section class="gap-md flex text-3xl text-black dark:text-white">
-      <div class="text-md gap-lg flex flex-col leading-[64px]">
+    <section class="gap-md flex flex-col-reverse items-center text-3xl text-black md:flex-row md:items-start dark:text-white">
+      <div class="lg:text-md gap-lg flex flex-col text-sm leading-[24px] lg:leading-[64px]">
         <p>
           My name is Matthew Morrison. I am a software engineer, climber, guitarist, and golfer. I
           live in Nashville, Tennessee and I work for Asurion.

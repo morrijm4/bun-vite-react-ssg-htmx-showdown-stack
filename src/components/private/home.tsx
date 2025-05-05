@@ -1,17 +1,15 @@
 import * as elements from 'typed-html';
 import { Button } from './button';
-import { RightArrow } from '../../public/icons/black-right-arrow';
 import { Hero } from './hero';
 
 export function Home() {
   return (
-    <section class="flex items-center justify-center text-3xl text-black dark:text-white">
-      <div class="gap-lg flex flex-col items-start">
+    <section class="lg:text-md flex flex-col-reverse items-center justify-between text-sm text-black md:flex-row md:items-start dark:text-white">
+      <div class="gap-md lg:gap-lg flex flex-col items-start">
         <h1>Hello! 👋</h1>
         <p>Check out my place to share projects, thoughts, and games.</p>
-        <Button id="go" class="gap-sm flex items-center">
+        <Button id="go" class="gap-2xs lg:gap-sm lg:text-md flex items-center text-sm">
           <span>Go</span>
-          <RightArrow />
         </Button>
       </div>
       <Hero />

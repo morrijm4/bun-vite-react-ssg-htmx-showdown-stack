@@ -9,6 +9,22 @@ function main() {
     navigate('/blog');
   });
 
+  window.addEventListener('popstate', ({ state }) => {
+    document.querySelectorAll('.router').forEach(hideElement);
+    document.querySelectorAll('.nav').forEach(deactivateElement);
+
+    if (state?.path != null) {
+      activateElement(getElement(state.path, '.nav'));
+    }
+
+    const page = getElement(location.pathname, '.router');
+    if (page) {
+      showElement(page);
+    } else {
+      location.pathname;
+    }
+  });
+
   const page = getElement(location.pathname, '.router');
   if (page) {
     showElement(page);
@@ -18,16 +34,21 @@ function main() {
 }
 
 function navigate(path: string) {
+  if (location.pathname == path) {
+    return;
+  }
+
   const prev = getElement(location.pathname, '.router');
 
   if (/* not on spa page */ prev == null) {
     location.pathname = path;
+    return;
   }
 
   hideElement(prev);
   deactivateElement(getElement(location.pathname, '.nav'));
 
-  history.pushState(null, '', path);
+  history.pushState({ path }, '', path);
 
   showElement(getElement(location.pathname, '.router'));
   activateElement(getElement(location.pathname, '.nav'));

@@ -5,7 +5,7 @@ export function Button({ children, class: className, ...rest }: elements.Attribu
   return (
     <button
       class={mc(
-        'bg-light-primary hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover dark:bg-dark-primary px-md py-sm text-md rounded-3xl text-white hover:cursor-pointer dark:text-black',
+        'bg-light-primary hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover dark:bg-dark-primary px-sm lg:px-lg py-2xs lg:py-xs text-md rounded-3xl text-white hover:cursor-pointer dark:text-black',
         className,
       )}
       {...rest}

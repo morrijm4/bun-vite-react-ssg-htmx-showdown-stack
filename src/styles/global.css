@@ -60,3 +60,47 @@
 .theme-inverse:where(.dark, .dark *) {
   fill: var(--color-black);
 }
+
+.float-wiggle {
+  animation-name: float;
+  animation-iteration-count: infinite;
+  display: inline-block;
+}
+
+/* Keyframes with some irregular motion */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-3px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  75% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.float-ease-in-out {
+  animation-timing-function: ease-in-out;
+}
+
+.float-slow {
+  animation-duration: 4.2s;
+  animation-delay: 0.1s;
+}
+
+.float-mid {
+  animation-duration: 3.7s;
+  animation-delay: 0.5s;
+}
+
+.float-fast {
+  animation-duration: 3.2s;
+  animation-delay: 1.1s;
+}

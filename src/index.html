@@ -6,28 +6,27 @@
 <script src="/scripts/theme.ts" type="module"></script>
 <script src="/scripts/router.ts" type="module"></script>
 <title>mattymo.dev</title></head>
-<body class="bg-light dark:bg-dark font-roboto py-lg px-2xl mx-auto flex max-w-300 flex-col justify-center text-black dark:text-white"><nav class="mb-2xl flex items-center justify-between"><ol class="gap-lg text-md flex"><li id="/" class="nav hover:cursor-pointer hover:underline">Home</li>
+<body class="bg-light dark:bg-dark font-roboto py-sm md:py-md lg:py-lg px-lg md:px-xl lg:px-2xl mx-auto flex max-w-300 flex-col justify-center text-black dark:text-white"><nav class="mb-lg lg:mb-2xl flex items-center justify-between"><ol class="gap-sm lg:gap-lg lg:text-md flex text-sm"><li id="/" class="nav hover:cursor-pointer hover:underline">Home</li>
 <li id="/about" class="nav hover:cursor-pointer hover:underline">About</li>
 <li id="/blog" class="nav hover:cursor-pointer hover:underline">Blog</li></ol>
-<div id="theme-toggle" class="bg-light-shadow dark:bg-dark-shadow p-sm dark:hover:bg-dark-shadow-hover hover:bg-light-shadow-hover rounded-xl hover:cursor-pointer"><img src="/icons/dark-mode.svg" alt="Dark Mode" id="dark" class="hidden">
-<img src="/icons/light-mode.svg" alt="Light Mode" id="light" class="hidden"></div></nav>
-<main><div><div id="/" class="router hidden"><section class="flex items-center justify-center text-3xl text-black dark:text-white"><div class="gap-lg flex flex-col items-start"><h1>Hello! 👋</h1>
+<div id="theme-toggle" class="bg-light-shadow dark:bg-dark-shadow p-xs lg:p-sm dark:hover:bg-dark-shadow-hover hover:bg-light-shadow-hover rounded-xl hover:cursor-pointer"><div class="size-4 lg:size-8"><img src="/icons/dark-mode.svg" alt="Dark Mode" id="dark" class="hidden h-auto w-full">
+<img src="/icons/light-mode.svg" alt="Light Mode" id="light" class="hidden h-auto w-full"></div></div></nav>
+<main><div><div id="/" class="router hidden"><section class="lg:text-md flex flex-col-reverse items-center justify-between text-sm text-black md:flex-row md:items-start dark:text-white"><div class="gap-md lg:gap-lg flex flex-col items-start"><h1>Hello! 👋</h1>
 <p>Check out my place to share projects, thoughts, and games.</p>
-<button class="bg-light-primary hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover dark:bg-dark-primary px-md py-sm text-md rounded-3xl text-white hover:cursor-pointer dark:text-black gap-sm flex items-center" id="go"><span>Go</span>
-<svg width="22" height="22" view-box="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="theme-inverse" d="M16.5667 12.3333H0.333374V9.66665H16.5667L9.10004 2.19998L11 0.333313L21.6667 11L11 21.6666L9.10004 19.8L16.5667 12.3333Z"></path></svg></button></div>
-<div class="relative min-h-[439px] min-w-[408px]"><div class="bg-light-shadow dark:bg-dark-shadow absolute top-[69px] size-96 rounded-full shadow-xl"></div>
-<div class="bg-light-tertiary dark:bg-dark-tertiary absolute top-[208px] left-[204px] size-52 rounded-full shadow-xl"></div>
-<div class="bg-light-primary dark:bg-dark-primary absolute left-[204px] size-44 rounded-full shadow-xl"></div>
-<div class="bg-light-secondary dark:bg-dark-secondary absolute top-[37px] left-[79px] size-32 rounded-full shadow-xl"></div>
-<img src="/images/profile-pic.png" alt="profile-pic" width="255" height="255" class="absolute top-[100px] right-[76px] rounded-full shadow-xl"></div></section></div>
-<div id="/about" class="router hidden"><section class="gap-md flex text-3xl text-black dark:text-white"><div class="text-md gap-lg flex flex-col leading-[64px]"><p>My name is Matthew Morrison. I am a software engineer, climber, guitarist, and golfer. I live in Nashville, Tennessee and I work for Asurion.</p>
+<button class="bg-light-primary hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover dark:bg-dark-primary px-sm lg:px-lg py-2xs lg:py-xs text-md rounded-3xl text-white hover:cursor-pointer dark:text-black gap-2xs lg:gap-sm lg:text-md flex items-center text-sm" id="go"><span>Go</span></button></div>
+<div class="mb-lg relative min-h-[190px] min-w-[194px] md:mb-0 lg:min-h-[439px] lg:min-w-[408px]"><div class="float-wiggle float-ease-in-out float-slow bg-light-shadow dark:bg-dark-shadow absolute top-[30px] size-40 rounded-full opacity-70 shadow-xl lg:top-[69px] lg:size-96"></div>
+<div class="float-wiggle float-ease-in-out float-mid bg-light-tertiary dark:bg-dark-tertiary absolute top-[92px] left-[90px] size-24 rounded-full opacity-70 shadow-xl lg:top-[208px] lg:left-[204px] lg:size-52"></div>
+<div class="float-wiggle float-ease-in-out float-mid bg-light-primary dark:bg-dark-primary absolute left-[90px] size-20 rounded-full opacity-70 shadow-xl lg:left-[204px] lg:size-44"></div>
+<div class="float-wiggle float-ease-in-out float-fast bg-light-secondary dark:bg-dark-secondary absolute top-[16px] left-[35px] size-14 rounded-full opacity-70 shadow-xl lg:top-[37px] lg:left-[79px] lg:size-32"></div>
+<div class="float-wiggle float-ease-in-out float-slow absolute top-[44px] left-[33px] size-28 lg:top-[100px] lg:left-[76px] lg:size-64"><img src="/images/profile-pic.png" alt="profile-pic" class="h-auto w-full rounded-full shadow-xl"></div></div></section></div>
+<div id="/about" class="router hidden"><section class="gap-md flex flex-col-reverse items-center text-3xl text-black md:flex-row md:items-start dark:text-white"><div class="lg:text-md gap-lg flex flex-col text-sm leading-[24px] lg:leading-[64px]"><p>My name is Matthew Morrison. I am a software engineer, climber, guitarist, and golfer. I live in Nashville, Tennessee and I work for Asurion.</p>
 <p>I let my curiosity and interest direct my ambitions and I pursue my passions with great intensity. I focus on the journey and cherish what I learn from my experiences. I firmly believe I can accomplish anything when my mind is set on a goal.</p>
 <p>Feel free to email me at james.m.morrison@vanderbilt.edu.</p></div>
-<div class="relative min-h-[439px] min-w-[408px]"><div class="bg-light-shadow dark:bg-dark-shadow absolute top-[69px] size-96 rounded-full shadow-xl"></div>
-<div class="bg-light-tertiary dark:bg-dark-tertiary absolute top-[208px] left-[204px] size-52 rounded-full shadow-xl"></div>
-<div class="bg-light-primary dark:bg-dark-primary absolute left-[204px] size-44 rounded-full shadow-xl"></div>
-<div class="bg-light-secondary dark:bg-dark-secondary absolute top-[37px] left-[79px] size-32 rounded-full shadow-xl"></div>
-<img src="/images/profile-pic.png" alt="profile-pic" width="255" height="255" class="absolute top-[100px] right-[76px] rounded-full shadow-xl"></div></section></div>
-<div id="/blog" class="router hidden"><section><div class="gap-md flex items-center text-lg"><div>🕹️</div>
+<div class="mb-lg relative min-h-[190px] min-w-[194px] md:mb-0 lg:min-h-[439px] lg:min-w-[408px]"><div class="float-wiggle float-ease-in-out float-slow bg-light-shadow dark:bg-dark-shadow absolute top-[30px] size-40 rounded-full opacity-70 shadow-xl lg:top-[69px] lg:size-96"></div>
+<div class="float-wiggle float-ease-in-out float-mid bg-light-tertiary dark:bg-dark-tertiary absolute top-[92px] left-[90px] size-24 rounded-full opacity-70 shadow-xl lg:top-[208px] lg:left-[204px] lg:size-52"></div>
+<div class="float-wiggle float-ease-in-out float-mid bg-light-primary dark:bg-dark-primary absolute left-[90px] size-20 rounded-full opacity-70 shadow-xl lg:left-[204px] lg:size-44"></div>
+<div class="float-wiggle float-ease-in-out float-fast bg-light-secondary dark:bg-dark-secondary absolute top-[16px] left-[35px] size-14 rounded-full opacity-70 shadow-xl lg:top-[37px] lg:left-[79px] lg:size-32"></div>
+<div class="float-wiggle float-ease-in-out float-slow absolute top-[44px] left-[33px] size-28 lg:top-[100px] lg:left-[76px] lg:size-64"><img src="/images/profile-pic.png" alt="profile-pic" class="h-auto w-full rounded-full shadow-xl"></div></div></section></div>
+<div id="/blog" class="router hidden"><section><div class="gap-md flex items-center text-sm lg:text-lg"><div>🕹️</div>
 <a class="flex flex-col hover:cursor-pointer hover:underline" href="/snake"><div>Snake</div>
-<div class="text-sm">April 21st, 11:38 pm</div></a></div></section></div></div></main></body></html>
+<div class="text-2xs lg:text-sm">April 21st, 11:38 pm</div></a></div></section></div></div></main></body></html>
