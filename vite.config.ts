@@ -30,6 +30,7 @@ export default {
   },
   build: {
     outDir: '../dist',
+    minify: true,
     emptyOutDir: true,
     rollupOptions: {
       input: await getEntryPoints(),
@@ -37,7 +38,6 @@ export default {
   },
   esbuild: {
     treeShaking: true,
-    minifyIdentifiers: false,
   },
 } satisfies UserConfig;
 
