@@ -15,7 +15,7 @@ export default (
         <div class="flex w-full justify-between">
           <h1 id="title"></h1>
           <button
-            class="play-button cursor-pointer rounded-2xl bg-blue-500 text-white hover:bg-blue-600"
+            class="play-button bg-light-primary dark:bg-dark-primary hover:bg-light-primary-hover hover:dark:bg-dark-primary-hover cursor-pointer rounded-2xl text-white"
             id="play-button"
           >
             Play
@@ -37,7 +37,7 @@ export default (
               width="64px"
               height="64px"
               src="/public/icons/up-arrow.svg"
-              class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"
+              class="dark:bg-dark-primary bg-light-primary hover:light-primary-hover hover:dark:bg-dark-primary-hover cursor-pointer rounded-full p-4"
             />
           </div>
           <div class="flex w-full justify-between">
@@ -46,14 +46,14 @@ export default (
               width="64px"
               height="64px"
               src="/public/icons/left-arrow.svg"
-              class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"
+              class="bg-light-primary dark:bg-dark-primary hover:light-primary-hover hover:dark:bg-dark-primary-hover cursor-pointer rounded-full p-4"
             />
             <img
               id="right"
               width="64px"
               height="64px"
               src="/public/icons/right-arrow.svg"
-              class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"
+              class="bg-light-primary dark:bg-dark-primary hover:light-primary-hover hover:dark:bg-dark-primary-hover cursor-pointer rounded-full p-4"
             />
           </div>
           <div>
@@ -62,7 +62,7 @@ export default (
               width="64px"
               height="64px"
               src="/public/icons/down-arrow.svg"
-              class="cursor-pointer rounded-full bg-blue-500 p-4 hover:bg-blue-600"
+              class="bg-light-primary dark:bg-dark-primary hover:light-primary-hover hover:dark:bg-dark-primary-hover cursor-pointer rounded-full p-4"
             />
           </div>
         </div>
