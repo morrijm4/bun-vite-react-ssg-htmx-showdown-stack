@@ -3,7 +3,7 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
-import { Duration, RemovalPolicy } from 'aws-cdk-lib/core';
+import { RemovalPolicy } from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
 
 type StaticSiteProps = {
@@ -18,8 +18,6 @@ export class StaticSite extends Construct {
   constructor(scope: Construct, id: string, { domainName, siteSubDomain }: StaticSiteProps) {
     super(scope, id);
     this.cachePolicy = new cloudfront.CachePolicy(this, 'HTMLCachePolicy', {
-      defaultTtl: Duration.seconds(60),
-      maxTtl: Duration.seconds(60),
       enableAcceptEncodingGzip: true,
       enableAcceptEncodingBrotli: true,
     });
@@ -28,7 +26,7 @@ export class StaticSite extends Construct {
         customHeaders: [
           {
             header: 'Cache-Control',
-            value: 'max-age=60',
+            value: 'max-age=3600',
             override: true,
           },
           {
@@ -85,6 +83,8 @@ export class StaticSite extends Construct {
 
     cdn.addBehavior('/index', origin, this.#createBehaviorOptions());
     cdn.addBehavior('/snake', origin, this.#createBehaviorOptions());
+    cdn.addBehavior('/about', origin, this.#createBehaviorOptions());
+    cdn.addBehavior('/blog', origin, this.#createBehaviorOptions());
 
     new s3deploy.BucketDeployment(this, 'deploy-with-invalidation', {
       sources: [s3deploy.Source.asset('./dist/')],

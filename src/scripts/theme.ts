@@ -1,12 +1,10 @@
-const THEMES = ['light', 'dark'];
-type Theme = (typeof THEMES)[number];
+function main() {
+  changeTheme(getTheme());
 
-function isTheme(theme: string): theme is Theme {
-  return THEMES.includes(theme);
-}
-
-function assertTheme(theme: string): asserts theme is Theme {
-  if (!isTheme(theme)) throw new Error(`${theme} not a theme`);
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const theme = getTheme();
+    changeTheme(theme === 'dark' ? 'light' : 'dark');
+  });
 }
 
 function changeTheme(theme: Theme) {
@@ -44,41 +42,30 @@ function changeTheme(theme: Theme) {
   localStorage.setItem('theme', theme);
 }
 
-function getTheme(): Theme | null {
+function getTheme(): Theme {
   const theme = localStorage.getItem('theme');
 
   if (theme == null) {
-    return null;
+    return getDefaultTheme();
   }
 
   assertTheme(theme);
   return theme;
 }
 
-function isDarkMode(): boolean {
-  const theme = getTheme();
-
-  if (theme == null) {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
-
-  return theme === 'dark';
+function getDefaultTheme(): Theme {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-function main() {
-  const theme = getTheme();
+const THEMES = ['light', 'dark'] as const;
+type Theme = (typeof THEMES)[number];
 
-  if (theme != null) {
-    changeTheme(theme);
-  }
+function isTheme(theme: string): theme is Theme {
+  return THEMES.includes(theme as Theme);
+}
 
-  document.getElementById('theme-toggle')?.addEventListener('click', () => {
-    if (isDarkMode()) {
-      changeTheme('light');
-    } else {
-      changeTheme('dark');
-    }
-  });
+function assertTheme(theme: string): asserts theme is Theme {
+  if (!isTheme(theme)) throw new Error(`${theme} not a theme`);
 }
 
 main();

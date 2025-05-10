@@ -137,6 +137,8 @@ function createFoodPoint(grid: GridState): Point {
 
 function createKeyDownHandler(state: GameState) {
   return async (event: KeyboardEvent) => {
+    event.preventDefault();
+
     switch (event.key) {
       case 'ArrowUp':
       case 'w':

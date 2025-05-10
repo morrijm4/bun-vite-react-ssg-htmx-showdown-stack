@@ -1,39 +1,29 @@
 import * as elements from 'typed-html';
-import { Layout } from '../components/private/layout';
+import { Body } from '../components/private/body';
 import { Html } from '../components/private/html';
 import { Head } from '../components/private/head';
-import { Home } from '../components/private/home';
-import { Router, type Page } from '../components/private/router';
-import { About } from '../components/private/about';
-import { Blog } from '../components/private/blog';
-
-export const pages: Page[] = [
-  {
-    title: 'Home',
-    content: <Home />,
-    path: '/',
-  },
-  {
-    title: 'About',
-    content: <About />,
-    path: '/about',
-  },
-  {
-    title: 'Blog',
-    content: <Blog />,
-    path: '/blog',
-  },
-];
+import { Main } from '../components/private/Main';
+import { Hero } from '../components/private/hero';
 
 export default (
   <Html>
-    <Head>
-      <title>mattymo.dev</title>
-    </Head>
-    <Layout>
-      <main>
-        <Router pages={pages} />
-      </main>
-    </Layout>
+    <Head />
+    <Body>
+      <Main>
+        <div class="text-md flex flex-col-reverse items-center justify-between text-black md:flex-row md:items-center dark:text-white">
+          <div class="gap-md lg:gap-lg flex flex-col items-start">
+            <h1>Hello! 👋</h1>
+            <p>Check out my place to share projects, thoughts, and games.</p>
+            <a
+              class="gap-2xs lg:gap-sm bg-light-primary hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover dark:bg-dark-primary px-md lg:px-lg py-2xs lg:py-xs flex items-center rounded-3xl text-white hover:cursor-pointer dark:text-black"
+              href="/blog"
+            >
+              Go
+            </a>
+          </div>
+          <Hero />
+        </div>
+      </Main>
+    </Body>
   </Html>
 );

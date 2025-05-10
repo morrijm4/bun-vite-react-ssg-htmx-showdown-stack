@@ -22,7 +22,9 @@ export default {
       },
     },
   ],
-  server: {},
+  server: {
+    port: 4000,
+  },
   preview: {
     port: 4000,
   },

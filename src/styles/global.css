@@ -47,7 +47,7 @@
   /* Text */
   --text-2xs: calc(var(--spacing) * 1); /* 4 */
   --text-xs: calc(var(--spacing) * 2); /* 8 */
-  --text-sm: calc(var(--spacing) * 3); /* 12 */
+  --text-sm: calc(var(--spacing) * 4); /* 16 */
   --text-md: calc(var(--spacing) * 6); /* 24 */
   --text-lg: calc(var(--spacing) * 12); /* 48 */
   --text-xl: calc(var(--spacing) * 18); /* 72 */

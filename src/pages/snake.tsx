@@ -1,5 +1,5 @@
 import * as elements from 'typed-html';
-import { Layout } from '../components/private/layout';
+import { Body } from '../components/private/body';
 import { Html } from '../components/private/html';
 import { Head } from '../components/private/head';
 
@@ -10,8 +10,8 @@ export default (
       <link href="/styles/snake.css" rel="stylesheet" />
       <script src="/scripts/snake.ts" type="module"></script>
     </Head>
-    <Layout>
-      <main class="lg:text-md m-auto flex max-w-fit flex-col items-start gap-4 px-4 text-sm">
+    <Body>
+      <main class="mb-md lg:text-md m-auto flex max-w-fit flex-col items-start gap-4 px-4 text-sm">
         <div class="flex w-full justify-between">
           <h1 id="title"></h1>
           <button
@@ -30,7 +30,7 @@ export default (
             High score:&nbsp;<span id="high-score">0</span>
           </h1>
         </div>
-        <div class="m-auto flex w-48 flex-col items-center gap-1 lg:hidden">
+        <div class="m-auto flex w-48 flex-col items-center gap-1">
           <div>
             <img
               id="up"
@@ -67,6 +67,6 @@ export default (
           </div>
         </div>
       </main>
-    </Layout>
+    </Body>
   </Html>
 );
