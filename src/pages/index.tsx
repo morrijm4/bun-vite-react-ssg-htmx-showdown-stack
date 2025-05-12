@@ -15,7 +15,7 @@ export default (
             <h1>Hello!👋</h1>
             <p>Check out my place to share projects, thoughts, and games.</p>
             <a
-              class="gap-2xs lg:gap-sm bg-light-primary hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover dark:bg-dark-secondary px-md lg:px-lg py-2xs lg:py-xs flex items-center rounded-3xl text-white hover:cursor-pointer"
+              class="gap-2xs lg:gap-sm bg-light-primary hover:bg-light-primary-hover dark:hover:bg-dark-shadow dark:bg-dark-secondary px-md lg:px-lg py-2xs lg:py-xs flex items-center rounded-3xl text-white hover:cursor-pointer"
               href="/blog"
             >
               Go
