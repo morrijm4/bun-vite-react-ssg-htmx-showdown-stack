@@ -3,7 +3,7 @@ import { ThemeToggle } from './theme-toggle';
 
 export function Nav() {
   return (
-    <nav class="pt-lg pb-2xl px-lg lg:px-2xl flex items-center justify-between">
+    <nav class="pt-lg pb-2xl px-lg lg:px-2xl mx-auto flex max-w-300 items-center justify-between">
       <ol class="gap-md lg:gap-lg lg:text-md flex text-sm">
         {pages.map(({ title, path }) => {
           return (
