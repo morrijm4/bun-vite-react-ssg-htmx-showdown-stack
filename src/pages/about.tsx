@@ -1,31 +1,63 @@
 import * as elements from 'typed-html';
 import { Head } from '../components/private/head';
-import { Html } from '../components/private/html';
-import { Body } from '../components/private/body';
-import { Main } from '../components/private/Main';
-import { Hero } from '../components/private/hero';
 
 export default (
-  <Html>
+  <html>
     <Head />
-    <Body>
-      <Main>
-        <section class="gap-md flex flex-col-reverse items-center text-3xl text-black md:flex-row md:items-start dark:text-white">
-          <div class="lg:text-md gap-lg flex flex-col text-sm leading-[24px] lg:leading-[64px]">
-            <p>
-              My name is Matthew Morrison. I am a software engineer, climber, guitarist, and golfer.
-              I live in Nashville, Tennessee and I work for Asurion.
-            </p>
-            <p>
-              I let my curiosity and interest direct my ambitions and I pursue my passions with
-              great intensity. I focus on the journey and cherish what I learn from my experiences.
-              I firmly believe I can accomplish anything when my mind is set on a goal.
-            </p>
-            <p>Feel free to email me at james.m.morrison@vanderbilt.edu.</p>
+    <body class="overflow-hidden">
+      <nav class="absolute inset-0 z-0">
+        <div class="font-source-code text-xl font-bold tracking-widest">
+          <a
+            href="/"
+            class="absolute left-[calc(128px*2)] h-[126px] w-[126px] hover:cursor-pointer hover:bg-red-400"
+          >
+            <h1 class="flex h-full items-end p-4">HOME</h1>
+          </a>
+          <div class="absolute left-[calc(128px*3)] h-[126px] w-[126px] bg-blue-400 hover:cursor-pointer hover:bg-red-400">
+            <h1 class="flex h-full items-end p-4">ABOUT</h1>
           </div>
-          <Hero />
-        </section>
-      </Main>
-    </Body>
-  </Html>
+          <a class="absolute left-[calc(128px*4)] h-[126px] w-[126px] hover:cursor-pointer hover:bg-red-400">
+            <h1 class="flex h-full items-end p-4">PLAY</h1>
+          </a>
+          <a class="absolute left-[calc(128px*5)] h-[126px] w-[126px] hover:cursor-pointer hover:bg-red-400">
+            <h1 class="flex h-full items-end p-4">LEARN</h1>
+          </a>
+        </div>
+      </nav>
+      <a class="font-modak text-border-lg absolute right-16 bottom-4 z-50 cursor-default text-9xl text-yellow-300">
+        M
+      </a>
+      <img
+        src="/images/me.png"
+        alt="Me"
+        class="absolute right-48 bottom-[-32px] z-40"
+        width="450"
+        height="450"
+      />
+      <img
+        src="/images/me.png"
+        alt="Me"
+        class="absolute right-32 bottom-[-16px] z-30 opacity-75"
+        width="450"
+        height="450"
+      />
+      <img
+        src="/images/me.png"
+        alt="Me"
+        class="absolute right-16 bottom-0 z-20 opacity-50"
+        width="450"
+        height="450"
+      />
+      <main class="relative z-10 mt-[128px] flex h-[500px] pl-[5%]">
+        <div class="mt-12 flex w-[800px] flex-col items-start gap-8 border-8 border-black bg-red-400 px-8 pt-24 shadow-[30px_30px_0_0_black]">
+          <h1 class="text-border-lg font-modak flex cursor-default text-9xl leading-20 tracking-[0.075em] text-yellow-300">
+            ABOUT
+          </h1>
+          <p class="font-source-code text-2xl font-bold">
+            Check out my place to share projects, thoughts, and games.
+          </p>
+        </div>
+      </main>
+    </body>
+  </html>
 );

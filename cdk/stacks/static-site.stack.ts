@@ -1,14 +1,19 @@
-import { BaseStack, type BaseStackProps } from './base.stack'
+import { BaseStack, type BaseStackProps } from './base.stack';
 import type { Construct } from 'constructs';
 import { StaticSite } from '../constructs/static-site';
-import { getDomainName } from '../config/domain';
+
+interface StaticSiteProps extends BaseStackProps {
+  domainName: string;
+  subDomain?: string;
+}
 
 export class StaticSiteStack extends BaseStack {
-  constructor(scope: Construct, id: string, props?: BaseStackProps) {
-    super(scope, id, props);
+  constructor(scope: Construct, id: string, { domainName, subDomain, ...rest }: StaticSiteProps) {
+    super(scope, id, rest);
 
     new StaticSite(this, 'mattymo', {
-      domainName: getDomainName(),
+      domainName,
+      subDomain,
     });
   }
 }

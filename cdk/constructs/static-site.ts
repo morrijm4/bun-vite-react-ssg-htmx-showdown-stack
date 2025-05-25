@@ -3,19 +3,19 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
-import { RemovalPolicy } from 'aws-cdk-lib/core';
+import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
 
 type StaticSiteProps = {
   domainName: string;
-  siteSubDomain?: string;
+  subDomain?: string;
 };
 
 export class StaticSite extends Construct {
   cachePolicy: cloudfront.CachePolicy;
   responseHeadersPolicy: cloudfront.ResponseHeadersPolicy;
 
-  constructor(scope: Construct, id: string, { domainName, siteSubDomain }: StaticSiteProps) {
+  constructor(scope: Construct, id: string, { domainName, subDomain }: StaticSiteProps) {
     super(scope, id);
     this.cachePolicy = new cloudfront.CachePolicy(this, 'HTMLCachePolicy', {
       enableAcceptEncodingGzip: true,
@@ -38,7 +38,7 @@ export class StaticSite extends Construct {
       },
     });
 
-    const siteDomain = this.#getSiteDomain(domainName, siteSubDomain);
+    const siteDomain = this.#getSiteDomain(domainName, subDomain);
 
     const siteBucket = new s3.Bucket(this, 'bucket', {
       bucketName: siteDomain,
@@ -48,16 +48,12 @@ export class StaticSite extends Construct {
       autoDeleteObjects: true,
     });
 
-    const certificate = acm.Certificate.fromCertificateArn(
-      this,
-      'cert',
-      'arn:aws:acm:us-east-1:670799836323:certificate/28826456-e703-4658-9de4-006846add9ef',
-    );
+    const certificateArn = this.#getCertificateArn(subDomain);
 
     const origin = origins.S3BucketOrigin.withOriginAccessControl(siteBucket);
 
     const cdn = new cloudfront.Distribution(this, 'distribution', {
-      certificate,
+      certificate: acm.Certificate.fromCertificateArn(this, 'cert', certificateArn),
       defaultRootObject: 'index',
       domainNames: [siteDomain],
       minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
@@ -94,11 +90,11 @@ export class StaticSite extends Construct {
     });
   }
 
-  #getSiteDomain(domainName: string, siteSubdomain?: string): string {
-    if (siteSubdomain == null) {
+  #getSiteDomain(domainName: string, subdomain?: string): string {
+    if (subdomain == null) {
       return domainName;
     }
-    return `${domainName}.${siteSubdomain}`;
+    return `${subdomain}.${domainName}`;
   }
 
   #createBehaviorOptions(): cloudfront.AddBehaviorOptions {
@@ -109,5 +105,14 @@ export class StaticSite extends Construct {
       cachePolicy: this.cachePolicy,
       responseHeadersPolicy: this.responseHeadersPolicy,
     };
+  }
+
+  #getCertificateArn(subdomain?: string): string {
+    switch (subdomain) {
+      case 'test':
+        return 'arn:aws:acm:us-east-1:670799836323:certificate/45d4bc16-6650-4caf-b836-a3547282bdce';
+      default:
+        return 'arn:aws:acm:us-east-1:670799836323:certificate/28826456-e703-4658-9de4-006846add9ef';
+    }
   }
 }

@@ -1,29 +1,69 @@
 import * as elements from 'typed-html';
-import { Body } from '../components/private/body';
-import { Html } from '../components/private/html';
 import { Head } from '../components/private/head';
-import { Main } from '../components/private/main';
-import { Hero } from '../components/private/hero';
 
 export default (
-  <Html>
+  <html>
     <Head />
-    <Body>
-      <Main>
-        <div class="text-md flex flex-col-reverse items-center justify-between text-black md:flex-row md:items-center dark:text-white">
-          <div class="gap-md lg:gap-lg flex flex-col items-start">
-            <h1>Hello!👋</h1>
-            <p>Check out my place to share projects, thoughts, and games.</p>
-            <a
-              class="gap-2xs lg:gap-sm bg-light-primary hover:bg-light-primary-hover dark:hover:bg-dark-shadow dark:bg-dark-secondary px-md lg:px-lg py-2xs lg:py-xs flex items-center rounded-3xl text-white hover:cursor-pointer"
-              href="/blog"
-            >
-              Go
-            </a>
+    <body class="overflow-hidden">
+      <nav class="absolute inset-0 z-0">
+        <div class="font-source-code text-xl font-bold tracking-widest">
+          <div class="absolute left-[calc(128px*2)] h-[126px] w-[126px] bg-yellow-300 hover:cursor-pointer hover:bg-red-400">
+            <h1 class="flex h-full items-end p-4">HOME</h1>
           </div>
-          <Hero />
+          <a
+            href="/about"
+            class="absolute left-[calc(128px*3)] h-[126px] w-[126px] hover:cursor-pointer hover:bg-red-400"
+          >
+            <h1 class="flex h-full items-end p-4">ABOUT</h1>
+          </a>
+          <a class="absolute left-[calc(128px*4)] h-[126px] w-[126px] hover:cursor-pointer hover:bg-red-400">
+            <h1 class="flex h-full items-end p-4">PLAY</h1>
+          </a>
+          <a class="absolute left-[calc(128px*5)] h-[126px] w-[126px] hover:cursor-pointer hover:bg-red-400">
+            <h1 class="flex h-full items-end p-4">LEARN</h1>
+          </a>
         </div>
-      </Main>
-    </Body>
-  </Html>
+      </nav>
+      <a class="font-modak text-border-lg absolute right-16 bottom-4 z-50 cursor-default text-9xl text-yellow-300">
+        M
+      </a>
+      <img
+        src="/images/me.png"
+        alt="Me"
+        class="absolute right-48 bottom-[-32px] z-40"
+        width="450"
+        height="450"
+      />
+      <img
+        src="/images/me.png"
+        alt="Me"
+        class="absolute right-32 bottom-[-16px] z-30 opacity-75"
+        width="450"
+        height="450"
+      />
+      <img
+        src="/images/me.png"
+        alt="Me"
+        class="absolute right-16 bottom-0 z-20 opacity-50"
+        width="450"
+        height="450"
+      />
+      <main class="relative z-10 mt-[128px] flex h-[500px] pl-[5%]">
+        <div class="mt-12 flex w-[800px] flex-col items-start gap-8 border-8 border-black bg-blue-400 px-8 pt-24 shadow-[30px_30px_0_0_black]">
+          <h1 class="text-border-lg font-modak flex cursor-default text-9xl leading-20 tracking-[0.075em] text-yellow-300">
+            HEYOOO
+          </h1>
+          <p class="font-source-code text-2xl font-bold">
+            Check out my place to share projects, thoughts, and games.
+          </p>
+          <a
+            href="/about"
+            class="text-border-sm font-modak border-4 border-black bg-orange-300 px-8 text-xl tracking-widest text-yellow-300 shadow-[5px_5px_0_0_black] hover:cursor-pointer hover:bg-red-400 hover:text-orange-300"
+          >
+            LET'S GO
+          </a>
+        </div>
+      </main>
+    </body>
+  </html>
 );
